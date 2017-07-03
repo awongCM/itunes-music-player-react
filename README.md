@@ -34,6 +34,5 @@ can just do the following.
 Have fun!
 
 ### TODOS
--Visual indicator to display currently playing track when selecting music from list, at present it's indicated 
-on the app bar on top.
--Event Handling for the music list item to stay playing when you switch music items when viewing in mobile mode. At present, you need to have the music controller to explicit play/pause the music when searching/switching music mode.
+- Visual indicator to display currently playing track when selecting music from list, at present it's indicated on the app bar on top.
+- Event Handling for the music list item to stay playing when you switch music items when viewing in mobile mode. At present, you need to have the music controller to explicit play/pause the music when searching/switching music mode.
