@@ -1,0 +1,27 @@
+.MusicController {
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-bottom: 0;
+    z-index : 1;
+    background: #e8e8e8 !important;
+    display: block;
+   	height: 0;
+   	transition: height 5s cubic-bezier(0, 1, 0.5, 1);
+
+}
+
+.jsShow {
+	height: auto;
+	transition: height 5s cubic-bezier(0, 1, 0.5, 1);	
+}
+
+.SliderToolbar {
+	padding: 0 24px;
+}
+
+@keyframes fadeIn {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}

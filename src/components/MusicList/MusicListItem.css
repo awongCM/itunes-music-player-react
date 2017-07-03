@@ -1,0 +1,8 @@
+.AvatarSquare { 
+	border-radius: 0 !important; /*remove the circle */
+	border: 1px solid #dcdcdc;
+}
+
+.MusicListItem {
+	border-bottom: 1px solid #dcdcdc !important; /* give ghe divider look feel*/
+}

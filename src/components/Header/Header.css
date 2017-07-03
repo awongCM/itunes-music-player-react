@@ -1,0 +1,5 @@
+
+/* To overwrite the z stacking index of the app banner*/
+.Header {
+	z-index: 0 !important;
+}
