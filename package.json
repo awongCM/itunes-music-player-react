@@ -4,13 +4,17 @@
   "private": true,
   "dependencies": {
     "material-ui": "^0.18.5",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "1.0.10",
-    "react-tap-event-plugin": "^2.0.1"
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-scripts": "5.0.0",
+    "react-tap-event-plugin": "^2.0.1",
+    "@snyk/protect": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
-  }
+    "build": "react-scripts build",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
+  },
+  "snyk": true
 }
