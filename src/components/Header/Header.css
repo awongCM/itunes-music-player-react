@@ -1,5 +1,12 @@
-
-/* To overwrite the z stacking index of the app banner*/
 .Header {
-	z-index: 0 !important;
+  z-index: 10 !important;
+  position: sticky;
+  top: 0;
+}
+
+.Header .mui-app-bar-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100vw - 32px);
 }

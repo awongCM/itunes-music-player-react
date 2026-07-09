@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Header from "./components/Header/Header";
 import SearchBar from "./components/SearchBar/SearchBar";
 import MusicList from "./components/MusicList/MusicList";
@@ -8,6 +9,18 @@ import Paper from 'material-ui/Paper';
 
 import * as ItunesService from "./services/ItunesService";
 
+const darkTheme = getMuiTheme({
+  palette: {
+    primary1Color: '#8b5cf6',
+    accent1Color: '#a78bfa',
+    canvasColor: '#0c0c0f',
+    paperColor: '#14141a',
+    textColor: '#f4f4f5',
+  },
+  appBar: {
+    height: 56,
+  },
+});
 
 class App extends Component {
 
@@ -89,8 +102,8 @@ class App extends Component {
   
   render() {
     return (
-       <MuiThemeProvider>
-       	<Paper>
+       <MuiThemeProvider muiTheme={darkTheme}>
+       	<Paper className="App">
           <Header currentAudio={this.state.currentAudio} />
           <SearchBar 
             filterText={this.state.filterText}

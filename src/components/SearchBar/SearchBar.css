@@ -1,3 +1,10 @@
 .SearchBar {
-	padding: 20px;
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--bg-secondary) !important;
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: none !important;
+}
+
+.SearchBar .mui-text-field {
+  font-family: 'Inter', sans-serif;
 }

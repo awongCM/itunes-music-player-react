@@ -1,20 +1,71 @@
 .DesktopDrawer {
-	text-align: center;
+  text-align: center;
+  padding: var(--space-lg);
+  background-color: var(--bg-elevated) !important;
+  box-shadow: none !important;
 }
 
 .DesktopDrawerAvatar {
-	margin-top: 50px !important;
-	margin-bottom: 50px !important;
-	border-radius: 0 !important;
-	border: 1px solid #dcdcdc;
+  margin-top: var(--space-xl) !important;
+  margin-bottom: var(--space-lg) !important;
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid var(--border-subtle) !important;
+  box-shadow: 0 8px 32px var(--accent-glow);
+}
+
+.DesktopDrawer__trackName {
+  box-shadow: none !important;
+  margin: var(--space-md) 0 !important;
+  font-weight: 600 !important;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  background-color: transparent !important;
+}
+
+.DesktopDrawer__artistName {
+  box-shadow: none !important;
+  margin: 0 0 var(--space-lg) !important;
+  font-weight: 400 !important;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  background-color: transparent !important;
+}
+
+.DesktopDrawer__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) 0;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.DesktopDrawer__controls .mui-icon-button {
+  transition: transform var(--transition-fast);
+}
+
+.DesktopDrawer__controls .mui-icon-button:hover {
+  transform: scale(1.1);
 }
 
 .DrawerListItem {
-	border-bottom: 1px solid #dcdcdc !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  color: var(--text-secondary) !important;
+  font-size: 0.9rem;
+  transition: background-color var(--transition-fast);
 }
 
-.AlbumTrackLabel {
-	box-shadow: none !important;
-	margin: 20px 0 !important;
-	font-weight: bold !important;
+.DrawerListItem:hover {
+  background-color: var(--bg-hover) !important;
+}
+
+.DesktopDrawer__albumHeading {
+  padding: var(--space-md) var(--space-lg) var(--space-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
 }

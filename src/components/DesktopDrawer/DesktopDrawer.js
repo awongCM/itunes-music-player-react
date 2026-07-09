@@ -138,13 +138,13 @@ class DesktopDrawer extends Component {
             src={this.props.currentAudio.artworkUrl60}
             size={200}
           />
-          <Paper className="AlbumTrackLabel">
-            <h3>{`<---Visual Audio goes here--->`}</h3>
-          </Paper>
-          <Paper className="AlbumTrackLabel">
+          <Paper className="DesktopDrawer__trackName">
             {this.props.currentAudio.trackName}
           </Paper>
-          <Paper>
+          <Paper className="DesktopDrawer__artistName">
+            {this.props.currentAudio.artistName}
+          </Paper>
+          <Paper className="DesktopDrawer__controls">
             <IconButton
               iconStyle={IconStyles}
               style={IconStylesLayout}
@@ -171,6 +171,7 @@ class DesktopDrawer extends Component {
           </Paper>
         </Paper>
 
+        <div className="DesktopDrawer__albumHeading">Albums by artist</div>
         <List>{songsList}</List>
       </Drawer>
     );

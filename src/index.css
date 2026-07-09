@@ -1,13 +1,147 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #0c0c0f;
+  --bg-secondary: #14141a;
+  --bg-elevated: #1c1c24;
+  --bg-surface: #252530;
+  --bg-hover: #2e2e3a;
+
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  --accent: #8b5cf6;
+  --accent-soft: rgba(139, 92, 246, 0.15);
+  --accent-glow: rgba(139, 92, 246, 0.35);
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-player: 0 -8px 32px rgba(0, 0, 0, 0.5);
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  --player-height: 72px;
+  --header-height: 56px;
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/*
-TODO
-Presently I do not use CSS modules or one of the CSS-in-JS plugins to style the app.
-I've been comfortably writing my CSS code by hand using simple CSS methodology such as BEM/SMACSS
-*/
+.App {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  padding-bottom: var(--player-height);
+}
+
+.App > div {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Material UI v0 global overrides */
+.mui-app-bar {
+  background-color: var(--bg-secondary) !important;
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: none !important;
+}
+
+.mui-app-bar-title {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  letter-spacing: -0.01em;
+}
+
+.mui-paper {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.mui-text-field input {
+  color: var(--text-primary) !important;
+}
+
+.mui-text-field-label {
+  color: var(--text-secondary) !important;
+}
+
+.mui-text-field-hint-text {
+  color: var(--text-muted) !important;
+}
+
+.mui-text-field-underline:before {
+  border-bottom-color: var(--border-subtle) !important;
+}
+
+.mui-text-field-underline:after {
+  border-bottom-color: var(--accent) !important;
+}
+
+.mui-text-field-underline:hover:before {
+  border-bottom-color: var(--border-strong) !important;
+}
+
+.mui-list {
+  background-color: transparent !important;
+  padding: var(--space-sm) var(--space-md) !important;
+}
+
+.mui-list-item {
+  color: var(--text-primary) !important;
+}
+
+.mui-font-icon {
+  color: var(--text-primary) !important;
+}
+
+.mui-slider-track {
+  background-color: var(--accent) !important;
+}
+
+.mui-slider-handle {
+  border-color: var(--accent) !important;
+  background-color: var(--accent) !important;
+}
+
+.mui-slider-selection {
+  background-color: var(--accent) !important;
+}
+
+.mui-slider-track-fill {
+  background-color: var(--accent) !important;
+}
+
+.mui-drawer {
+  background-color: var(--bg-elevated) !important;
+}
+
+.mui-toolbar {
+  background-color: transparent !important;
+}

@@ -60,7 +60,7 @@ class MusicList extends Component {
         if (item.artistName.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1) {
             return;
         }
-        listItems.push(<MusicListItem key={i} value={i} songData={item} currentAudio={this.props.currentAudio} onChangeSong={this.handleChangeSong.bind(this)}/>);
+        listItems.push(<MusicListItem key={i} value={i} songData={item} currentAudio={this.props.currentAudio} isCurrentlyPlaying={this.props.isCurrentlyPlaying} onChangeSong={this.handleChangeSong.bind(this)}/>);
     })
 
     return (

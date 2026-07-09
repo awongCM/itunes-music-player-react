@@ -20,20 +20,28 @@ class MusicListItem extends Component {
 
 	render() {
 		const item = this.state.item;
+		const isActive = this.props.currentAudio &&
+			this.props.currentAudio.previewUrl === item.previewUrl;
 
 		return (
-			<ListItem className='MusicListItem'
+			<ListItem className={'MusicListItem' + (isActive ? ' MusicListItem--active' : '')}
 				  value={this.props.index} 
-                  primaryText={item.trackName}
+                  primaryText={<span className="MusicListItem__trackName">{item.trackName}</span>}
                   leftAvatar={<Avatar src={item.artworkUrl60} size={50} className="AvatarSquare"/>}
                   onTouchTap={this.handleChangeSong.bind(this)}
                   secondaryText= {
                     <p>
-                      <span>{item.artistName}</span><br/>
-                      <span>{item.collectionName}</span>
+                      <span className="MusicListItem__artist">{item.artistName}</span><br/>
+                      <span className="MusicListItem__album">{item.collectionName}</span>
+                      {isActive && this.props.isCurrentlyPlaying && (
+                        <span className="MusicListItem__nowPlaying">
+                          <span className="MusicListItem__nowPlayingDot" />
+                          Now playing
+                        </span>
+                      )}
                     </p>
                   }
-                  secondaryTextLines={2}
+                  secondaryTextLines={isActive && this.props.isCurrentlyPlaying ? 3 : 2}
                 />
 		);
 	}
