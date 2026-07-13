@@ -5,7 +5,7 @@
   right: 0;
   margin-bottom: 0;
   z-index: 100;
-  background: rgba(20, 20, 26, 0.85) !important;
+  background: var(--bg-player) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-subtle);

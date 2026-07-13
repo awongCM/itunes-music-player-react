@@ -9,8 +9,8 @@
   margin-top: var(--space-xl) !important;
   margin-bottom: var(--space-lg) !important;
   border-radius: var(--radius-lg) !important;
-  border: 1px solid var(--border-subtle) !important;
-  box-shadow: 0 8px 32px var(--accent-glow);
+  border: 1px solid var(--accent-border) !important;
+  box-shadow: 0 8px 32px var(--accent-glow), 0 0 0 1px rgba(0, 229, 255, 0.1);
 }
 
 .DesktopDrawer__trackName {

@@ -11,11 +11,11 @@ import * as ItunesService from "./services/ItunesService";
 
 const darkTheme = getMuiTheme({
   palette: {
-    primary1Color: '#8b5cf6',
-    accent1Color: '#a78bfa',
-    canvasColor: '#0c0c0f',
-    paperColor: '#14141a',
-    textColor: '#f4f4f5',
+    primary1Color: '#ff2d95',
+    accent1Color: '#00e5ff',
+    canvasColor: '#080510',
+    paperColor: '#0f0a18',
+    textColor: '#f0e6ff',
   },
   appBar: {
     height: 56,

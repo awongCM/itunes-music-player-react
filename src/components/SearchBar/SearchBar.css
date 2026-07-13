@@ -2,7 +2,7 @@
   padding: var(--space-md) var(--space-lg);
   background-color: var(--bg-secondary) !important;
   border-bottom: 1px solid var(--border-subtle);
-  box-shadow: none !important;
+  box-shadow: inset 0 1px 0 rgba(0, 229, 255, 0.05) !important;
 }
 
 .SearchBar .mui-text-field {

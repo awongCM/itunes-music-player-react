@@ -12,7 +12,7 @@
 
 .MusicListItem--active {
   background-color: var(--accent-soft) !important;
-  border-color: rgba(139, 92, 246, 0.3) !important;
+  border-color: var(--accent-border) !important;
 }
 
 .MusicListItem--active .MusicListItem__trackName {
