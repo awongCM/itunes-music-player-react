@@ -1,27 +1,32 @@
 .MusicController {
-	position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-bottom: 0;
-    z-index : 1;
-    background: #e8e8e8 !important;
-    display: block;
-   	height: 0;
-   	transition: height 5s cubic-bezier(0, 1, 0.5, 1);
-
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-bottom: 0;
+  z-index: 100;
+  background: var(--bg-player) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-player);
+  display: block;
+  height: 0;
+  overflow: hidden;
+  transition: height var(--transition-normal);
 }
 
 .jsShow {
-	height: auto;
-	transition: height 5s cubic-bezier(0, 1, 0.5, 1);	
+  height: var(--player-height);
 }
 
 .SliderToolbar {
-	padding: 0 24px;
+  padding: 0 var(--space-lg) var(--space-sm);
 }
 
-@keyframes fadeIn {
-	from {opacity: 0;}
-	to {opacity: 1;}
+@media (min-width: 701px) {
+  .MusicController {
+    height: var(--player-height);
+    overflow: visible;
+  }
 }

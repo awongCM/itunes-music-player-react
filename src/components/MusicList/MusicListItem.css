@@ -1,8 +1,81 @@
-.AvatarSquare { 
-	border-radius: 0 !important; /*remove the circle */
-	border: 1px solid #dcdcdc;
+.MusicListItem {
+  position: relative;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid transparent !important;
+  margin-bottom: var(--space-xs) !important;
+  padding: var(--space-sm) var(--space-md) !important;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.MusicListItem {
-	border-bottom: 1px solid #dcdcdc !important; /* give ghe divider look feel*/
+.MusicListItem:hover {
+  background-color: var(--bg-hover) !important;
+}
+
+.MusicListItem--active {
+  background-color: var(--accent-soft) !important;
+  border-color: var(--accent-border) !important;
+}
+
+.MusicListItem--active .MusicListItem__trackName {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.MusicListItem--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background-color: var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.AvatarSquare {
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--border-subtle) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+.MusicListItem__trackName {
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+}
+
+.MusicListItem__artist {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.MusicListItem__album {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.MusicListItem__nowPlaying {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.MusicListItem__nowPlayingDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: var(--accent);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
 }

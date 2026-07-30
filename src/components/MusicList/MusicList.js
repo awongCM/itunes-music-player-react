@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {List, ListItem, makeSelectable} from 'material-ui/List';
+import {List, makeSelectable} from 'material-ui/List';
 import MusicListItem from './MusicListItem';
+import './MusicList.css';
 
 //Wrapper class for SelectableList
 let SelectableList = makeSelectable(List);
@@ -55,19 +56,31 @@ class MusicList extends Component {
     // console.log(this.props.musicItems);
 
     let listItems = [];
+    let listIndex = 0;
 
     this.props.musicItems.forEach((item, i) => {
         if (item.artistName.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1) {
             return;
         }
-        listItems.push(<MusicListItem key={i} value={i} songData={item} currentAudio={this.props.currentAudio} onChangeSong={this.handleChangeSong.bind(this)}/>);
+        listItems.push(
+          <MusicListItem
+            key={item.previewUrl || i}
+            value={listIndex}
+            songData={item}
+            currentAudio={this.props.currentAudio}
+            isCurrentlyPlaying={this.props.isCurrentlyPlaying}
+            onChangeSong={this.handleChangeSong.bind(this)}
+          />
+        );
+        listIndex += 1;
     })
 
     return (
-      <SelectableList defaultValue={0} >
-        { listItems }
-      </SelectableList>
-     
+      <div className="MusicList">
+        <SelectableList defaultValue={0} >
+          { listItems }
+        </SelectableList>
+      </div>
     );
   }
   

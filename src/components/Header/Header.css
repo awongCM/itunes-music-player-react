@@ -1,5 +1,14 @@
-
-/* To overwrite the z stacking index of the app banner*/
 .Header {
-	z-index: 0 !important;
+  z-index: 10 !important;
+  position: sticky;
+  top: 0;
+}
+
+.Header__themeToggle {
+  margin-right: 4px !important;
+}
+
+.Header__themeToggle svg {
+  color: var(--text-primary) !important;
+  fill: var(--text-primary) !important;
 }

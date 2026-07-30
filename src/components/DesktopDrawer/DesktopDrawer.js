@@ -8,7 +8,6 @@ import Paper from "material-ui/Paper";
 import Drawer from "material-ui/Drawer";
 import Avatar from "material-ui/Avatar";
 import { List, ListItem } from "material-ui/List";
-import Divider from "material-ui/Divider";
 
 import * as ItunesService from "../../services/ItunesService";
 
@@ -39,14 +38,25 @@ class DesktopDrawer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.lookupAlbumSongs();
+    const prevArtistId = this.props.currentAudio && this.props.currentAudio.artistId;
+    const nextArtistId = nextProps.currentAudio && nextProps.currentAudio.artistId;
+
+    if (nextArtistId && nextArtistId !== prevArtistId) {
+      this.lookupAlbumSongs(nextProps.currentAudio);
+    }
   }
 
   componentDidUpdate() {}
 
-  lookupAlbumSongs() {
+  lookupAlbumSongs(currentAudio) {
+    const audio = currentAudio || this.props.currentAudio;
+
+    if (!audio || !audio.artistId) {
+      return;
+    }
+
     let search_params = {
-      id: this.props.currentAudio.artistId,
+      id: audio.artistId,
       limit: 10,
       entity: "album"
     };
@@ -93,19 +103,18 @@ class DesktopDrawer extends Component {
   }
 
   shouldOpenSideDrawer() {
-    if (window.innerWidth < 700) {
-      console.log("we're in mobile mode ");
+    if (!this.props.isDesktop) {
       return false;
-    } else {
-      if (
-        Object.keys(this.props.currentAudio).length === 0 &&
-        this.props.currentAudio.constructor === Object
-      ) {
-        return false;
-      } else {
-        return true;
-      }
     }
+
+    if (
+      Object.keys(this.props.currentAudio).length === 0 &&
+      this.props.currentAudio.constructor === Object
+    ) {
+      return false;
+    }
+
+    return true;
   }
 
   render() {
@@ -114,13 +123,11 @@ class DesktopDrawer extends Component {
 
     songsList = this.state.albumSongs.map((item, i) => {
       return (
-        <div>
-          <ListItem
-            className="DrawerListItem"
-            key={i}
-            primaryText={item.collectionName}
-          />
-        </div>
+        <ListItem
+          className="DrawerListItem"
+          key={item.collectionId || i}
+          primaryText={item.collectionName}
+        />
       );
     });
 
@@ -138,13 +145,13 @@ class DesktopDrawer extends Component {
             src={this.props.currentAudio.artworkUrl60}
             size={200}
           />
-          <Paper className="AlbumTrackLabel">
-            <h3>{`<---Visual Audio goes here--->`}</h3>
-          </Paper>
-          <Paper className="AlbumTrackLabel">
+          <Paper className="DesktopDrawer__trackName">
             {this.props.currentAudio.trackName}
           </Paper>
-          <Paper>
+          <Paper className="DesktopDrawer__artistName">
+            {this.props.currentAudio.artistName}
+          </Paper>
+          <Paper className="DesktopDrawer__controls">
             <IconButton
               iconStyle={IconStyles}
               style={IconStylesLayout}
@@ -171,6 +178,7 @@ class DesktopDrawer extends Component {
           </Paper>
         </Paper>
 
+        <div className="DesktopDrawer__albumHeading">Albums by artist</div>
         <List>{songsList}</List>
       </Drawer>
     );
