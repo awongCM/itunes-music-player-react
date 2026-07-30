@@ -32,9 +32,25 @@ class MusicController extends Component {
     }
 
     if (this.props.isCurrentlyPlaying) {
-      audio.play();
+      this.attemptPlay();
     } else {
       audio.pause();
+    }
+  }
+
+  attemptPlay() {
+    const audio = this.refs.audios;
+    if (!audio) {
+      return;
+    }
+
+    const playPromise = audio.play();
+    if (playPromise && typeof playPromise.then === 'function') {
+      playPromise.catch(() => {
+        if (this.props.isCurrentlyPlaying) {
+          this.props.onPlayStateChange(false);
+        }
+      });
     }
   }
 
@@ -48,21 +64,28 @@ class MusicController extends Component {
 
   handlePlayTap() {
     const audio = this.refs.audios;
-    const playingNow = audio.paused;
-
-    if (playingNow) {
-      audio.play();
-    } else {
-      audio.pause();
+    if (!audio) {
+      return;
     }
 
-    this.props.onPlayStateChange(playingNow);
+    if (audio.paused) {
+      const playPromise = audio.play();
+      if (playPromise && typeof playPromise.then === 'function') {
+        playPromise
+          .then(() => this.props.onPlayStateChange(true))
+          .catch(() => this.props.onPlayStateChange(false));
+      } else {
+        this.props.onPlayStateChange(!audio.paused);
+      }
+    } else {
+      audio.pause();
+      this.props.onPlayStateChange(false);
+    }
   }
 
   render() {
-    const { isCurrentlyPlaying, currentAudio } = this.props;
+    const { isCurrentlyPlaying, currentAudio, isDesktop } = this.props;
     const hasTrack = !!(currentAudio && currentAudio.previewUrl);
-    const isDesktop = typeof window !== "undefined" && window.innerWidth > 700;
     const showMobilePlayer = hasTrack && !isDesktop;
 
     const button = isCurrentlyPlaying ? <PauseButton /> : <PlayButton />;
@@ -93,6 +116,7 @@ class MusicController extends Component {
         <DesktopDrawer
           isCurrentlyPlaying={isCurrentlyPlaying}
           currentAudio={currentAudio}
+          isDesktop={isDesktop}
           onSkipPrevTap={this.handleSkipPrevTap.bind(this)}
           onPlayTap={this.handlePlayTap.bind(this)}
           onSkipNextTap={this.handleSkipNextTap.bind(this)}

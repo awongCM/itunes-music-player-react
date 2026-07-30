@@ -20,9 +20,8 @@
 
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
-}
 
-[data-theme='dark'] {
+  /* Dark theme defaults (fallback before data-theme is set) */
   --bg-primary: #080510;
   --bg-secondary: #0f0a18;
   --bg-elevated: #161022;
@@ -111,5 +110,14 @@ body {
 @media (min-width: 701px) {
   .App {
     padding-bottom: var(--player-height);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

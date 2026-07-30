@@ -56,12 +56,23 @@ class MusicList extends Component {
     // console.log(this.props.musicItems);
 
     let listItems = [];
+    let listIndex = 0;
 
     this.props.musicItems.forEach((item, i) => {
         if (item.artistName.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1) {
             return;
         }
-        listItems.push(<MusicListItem key={i} value={i} songData={item} currentAudio={this.props.currentAudio} isCurrentlyPlaying={this.props.isCurrentlyPlaying} onChangeSong={this.handleChangeSong.bind(this)}/>);
+        listItems.push(
+          <MusicListItem
+            key={item.previewUrl || i}
+            value={listIndex}
+            songData={item}
+            currentAudio={this.props.currentAudio}
+            isCurrentlyPlaying={this.props.isCurrentlyPlaying}
+            onChangeSong={this.handleChangeSong.bind(this)}
+          />
+        );
+        listIndex += 1;
     })
 
     return (

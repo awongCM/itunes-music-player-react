@@ -38,14 +38,25 @@ class DesktopDrawer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.lookupAlbumSongs();
+    const prevArtistId = this.props.currentAudio && this.props.currentAudio.artistId;
+    const nextArtistId = nextProps.currentAudio && nextProps.currentAudio.artistId;
+
+    if (nextArtistId && nextArtistId !== prevArtistId) {
+      this.lookupAlbumSongs(nextProps.currentAudio);
+    }
   }
 
   componentDidUpdate() {}
 
-  lookupAlbumSongs() {
+  lookupAlbumSongs(currentAudio) {
+    const audio = currentAudio || this.props.currentAudio;
+
+    if (!audio || !audio.artistId) {
+      return;
+    }
+
     let search_params = {
-      id: this.props.currentAudio.artistId,
+      id: audio.artistId,
       limit: 10,
       entity: "album"
     };
@@ -92,19 +103,18 @@ class DesktopDrawer extends Component {
   }
 
   shouldOpenSideDrawer() {
-    if (window.innerWidth < 700) {
-      console.log("we're in mobile mode ");
+    if (!this.props.isDesktop) {
       return false;
-    } else {
-      if (
-        Object.keys(this.props.currentAudio).length === 0 &&
-        this.props.currentAudio.constructor === Object
-      ) {
-        return false;
-      } else {
-        return true;
-      }
     }
+
+    if (
+      Object.keys(this.props.currentAudio).length === 0 &&
+      this.props.currentAudio.constructor === Object
+    ) {
+      return false;
+    }
+
+    return true;
   }
 
   render() {
@@ -113,13 +123,11 @@ class DesktopDrawer extends Component {
 
     songsList = this.state.albumSongs.map((item, i) => {
       return (
-        <div>
-          <ListItem
-            className="DrawerListItem"
-            key={i}
-            primaryText={item.collectionName}
-          />
-        </div>
+        <ListItem
+          className="DrawerListItem"
+          key={item.collectionId || i}
+          primaryText={item.collectionName}
+        />
       );
     });
 

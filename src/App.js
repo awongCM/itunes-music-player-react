@@ -5,23 +5,46 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import MusicList from "./components/MusicList/MusicList";
 import MusicController from "./components/MusicController/MusicController";
 import Paper from 'material-ui/Paper';
-import { applyColorMode, createMuiTheme, getInitialColorMode } from './theme';
+import {
+  applyColorMode,
+  createMuiTheme,
+  getInitialColorMode,
+  isDesktopViewport,
+  persistColorMode,
+} from './theme';
 
 import * as ItunesService from "./services/ItunesService";
 
 class App extends Component {
 
-  state = {
-    filterText: '',
-    audios: [],
-    currentAudio: {},
-    isCurrentlyPlaying: false,
-    colorMode: getInitialColorMode(),
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterText: '',
+      audios: [],
+      currentAudio: {},
+      isCurrentlyPlaying: false,
+      colorMode: getInitialColorMode(),
+      isDesktop: isDesktopViewport(),
+    };
+    this.handleResize = this.handleResize.bind(this);
+  }
 
   componentDidMount() {
     applyColorMode(this.state.colorMode);
     this.fetchItunesData();
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize() {
+    const isDesktop = isDesktopViewport();
+    if (isDesktop !== this.state.isDesktop) {
+      this.setState({ isDesktop });
+    }
   }
 
   handleFilterTextInput(filterText) {
@@ -36,7 +59,7 @@ class App extends Component {
 
   handleToggleColorMode() {
     const colorMode = this.state.colorMode === 'dark' ? 'light' : 'dark';
-    window.localStorage.setItem('colorMode', colorMode);
+    persistColorMode(colorMode);
     applyColorMode(colorMode);
     this.setState({ colorMode });
   }
@@ -45,6 +68,10 @@ class App extends Component {
     let index = this.state.audios.map((audio) => {
       return audio.previewUrl;
     }).indexOf(item.previewUrl);
+
+    if (index === -1) {
+      return;
+    }
 
     if (index === 0) {
         index = this.state.audios.length - 1;
@@ -63,6 +90,9 @@ class App extends Component {
       return audio.previewUrl;
     }).indexOf(item.previewUrl);
 
+    if (index === -1) {
+      return;
+    }
 
     if (index === this.state.audios.length - 1) {
         index = 0;
@@ -130,6 +160,7 @@ class App extends Component {
             onPlayStateChange={this.handlePlayStateChange.bind(this)}
             currentAudio={this.state.currentAudio}
             isCurrentlyPlaying={this.state.isCurrentlyPlaying}
+            isDesktop={this.state.isDesktop}
            />
         </Paper>
        </MuiThemeProvider>

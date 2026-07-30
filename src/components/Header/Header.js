@@ -25,6 +25,10 @@ class Header extends Component {
           fontWeight: 600,
           fontSize: '1rem',
           letterSpacing: '-0.01em',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          maxWidth: 'calc(100vw - 80px)',
         }}
         showMenuIconButton={false}
         iconElementRight={

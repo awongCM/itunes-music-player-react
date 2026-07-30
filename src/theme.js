@@ -3,19 +3,17 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 const accent = '#ff2d95';
 const accentSecondary = '#00e5ff';
 
-const sharedTheme = {
-  appBar: {
-    height: 56,
-  },
-  slider: {
-    selectionColor: accent,
-    handleFillColor: accent,
-  },
-};
+const themeCache = {};
 
 export function createMuiTheme(colorMode) {
+  if (themeCache[colorMode]) {
+    return themeCache[colorMode];
+  }
+
+  let theme;
+
   if (colorMode === 'light') {
-    return getMuiTheme({
+    theme = getMuiTheme({
       palette: {
         primary1Color: '#e91e8c',
         accent1Color: accentSecondary,
@@ -39,36 +37,47 @@ export function createMuiTheme(colorMode) {
         selectionColor: accent,
         handleFillColor: accent,
       },
-      appBar: sharedTheme.appBar,
+      appBar: {
+        height: 56,
+        color: '#ffffff',
+        textColor: '#1a1228',
+      },
+    });
+  } else {
+    theme = getMuiTheme({
+      palette: {
+        primary1Color: accent,
+        accent1Color: accentSecondary,
+        canvasColor: '#080510',
+        paperColor: '#0f0a18',
+        textColor: '#f0e6ff',
+        secondaryTextColor: '#b8a8d4',
+        alternateTextColor: '#ffffff',
+        borderColor: 'rgba(255, 45, 149, 0.1)',
+      },
+      drawer: {
+        color: '#161022',
+      },
+      listItem: {
+        secondaryTextColor: '#b8a8d4',
+        leftIconColor: '#b8a8d4',
+        rightIconColor: '#b8a8d4',
+      },
+      slider: {
+        trackColor: 'rgba(255, 45, 149, 0.25)',
+        selectionColor: accent,
+        handleFillColor: accent,
+      },
+      appBar: {
+        height: 56,
+        color: '#0f0a18',
+        textColor: '#f0e6ff',
+      },
     });
   }
 
-  return getMuiTheme({
-    palette: {
-      primary1Color: accent,
-      accent1Color: accentSecondary,
-      canvasColor: '#080510',
-      paperColor: '#0f0a18',
-      textColor: '#f0e6ff',
-      secondaryTextColor: '#b8a8d4',
-      alternateTextColor: '#ffffff',
-      borderColor: 'rgba(255, 45, 149, 0.1)',
-    },
-    drawer: {
-      color: '#161022',
-    },
-    listItem: {
-      secondaryTextColor: '#b8a8d4',
-      leftIconColor: '#b8a8d4',
-      rightIconColor: '#b8a8d4',
-    },
-    slider: {
-      trackColor: 'rgba(255, 45, 149, 0.25)',
-      selectionColor: accent,
-      handleFillColor: accent,
-    },
-    appBar: sharedTheme.appBar,
-  });
+  themeCache[colorMode] = theme;
+  return theme;
 }
 
 export function getInitialColorMode() {
@@ -100,4 +109,16 @@ export function applyColorMode(colorMode) {
   if (metaThemeColor) {
     metaThemeColor.setAttribute('content', themeColor);
   }
+}
+
+export function persistColorMode(colorMode) {
+  try {
+    window.localStorage.setItem('colorMode', colorMode);
+  } catch (e) {
+    // localStorage may be unavailable in private browsing
+  }
+}
+
+export function isDesktopViewport() {
+  return typeof window !== 'undefined' && window.innerWidth > 700;
 }
