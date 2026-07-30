@@ -4,9 +4,11 @@
   top: 0;
 }
 
-.Header .mui-app-bar-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: calc(100vw - 32px);
+.Header__themeToggle {
+  margin-right: 4px !important;
+}
+
+.Header__themeToggle svg {
+  color: var(--text-primary) !important;
+  fill: var(--text-primary) !important;
 }

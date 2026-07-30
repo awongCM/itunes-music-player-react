@@ -1,42 +1,13 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Header from "./components/Header/Header";
 import SearchBar from "./components/SearchBar/SearchBar";
 import MusicList from "./components/MusicList/MusicList";
 import MusicController from "./components/MusicController/MusicController";
 import Paper from 'material-ui/Paper';
+import { applyColorMode, createMuiTheme, getInitialColorMode } from './theme';
 
 import * as ItunesService from "./services/ItunesService";
-
-const darkTheme = getMuiTheme({
-  palette: {
-    primary1Color: '#ff2d95',
-    accent1Color: '#00e5ff',
-    canvasColor: '#080510',
-    paperColor: '#0f0a18',
-    textColor: '#f0e6ff',
-    secondaryTextColor: '#b8a8d4',
-    alternateTextColor: '#ffffff',
-    borderColor: 'rgba(255, 45, 149, 0.1)',
-  },
-  appBar: {
-    height: 56,
-  },
-  drawer: {
-    color: '#161022',
-  },
-  listItem: {
-    secondaryTextColor: '#b8a8d4',
-    leftIconColor: '#b8a8d4',
-    rightIconColor: '#b8a8d4',
-  },
-  slider: {
-    trackColor: 'rgba(255, 45, 149, 0.25)',
-    selectionColor: '#ff2d95',
-    handleFillColor: '#ff2d95',
-  },
-});
 
 class App extends Component {
 
@@ -44,11 +15,13 @@ class App extends Component {
     filterText: '',
     audios: [],
     currentAudio: {},
-    isCurrentlyPlaying: false
+    isCurrentlyPlaying: false,
+    colorMode: getInitialColorMode(),
   };
 
   componentDidMount() {
-      this.fetchItunesData();
+    applyColorMode(this.state.colorMode);
+    this.fetchItunesData();
   }
 
   handleFilterTextInput(filterText) {
@@ -59,6 +32,13 @@ class App extends Component {
 
   handlePlayStateChange(isCurrentlyPlaying) {
     this.setState({ isCurrentlyPlaying });
+  }
+
+  handleToggleColorMode() {
+    const colorMode = this.state.colorMode === 'dark' ? 'light' : 'dark';
+    window.localStorage.setItem('colorMode', colorMode);
+    applyColorMode(colorMode);
+    this.setState({ colorMode });
   }
 
   handlePrevTrack(item){
@@ -123,11 +103,16 @@ class App extends Component {
   render() {
     const hasTrack = !!(this.state.currentAudio && this.state.currentAudio.previewUrl);
     const appClassName = 'App' + (hasTrack ? ' App--player-visible' : '');
+    const muiTheme = createMuiTheme(this.state.colorMode);
 
     return (
-       <MuiThemeProvider muiTheme={darkTheme}>
+       <MuiThemeProvider muiTheme={muiTheme}>
        	<Paper className={appClassName}>
-          <Header currentAudio={this.state.currentAudio} />
+          <Header
+            currentAudio={this.state.currentAudio}
+            colorMode={this.state.colorMode}
+            onToggleColorMode={this.handleToggleColorMode.bind(this)}
+          />
           <SearchBar 
             filterText={this.state.filterText}
             onFilterTextInput={this.handleFilterTextInput.bind(this)}
