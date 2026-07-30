@@ -20,35 +20,8 @@
   height: var(--player-height);
 }
 
-.MusicController .mui-toolbar {
-  min-height: 48px !important;
-  justify-content: center;
-}
-
-.MusicController .mui-toolbar-group {
-  display: flex;
-  align-items: center;
-}
-
-.MusicController .mui-flat-button,
-.MusicController .mui-icon-button {
-  transition: transform var(--transition-fast), background-color var(--transition-fast);
-}
-
-.MusicController .mui-icon-button:hover {
-  transform: scale(1.08);
-}
-
-.MusicController .mui-icon-button:active {
-  transform: scale(0.95);
-}
-
 .SliderToolbar {
   padding: 0 var(--space-lg) var(--space-sm);
-}
-
-.SliderToolbar .mui-slider {
-  margin: 0 !important;
 }
 
 @media (min-width: 701px) {

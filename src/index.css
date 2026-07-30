@@ -9,7 +9,7 @@
 
   --text-primary: #f0e6ff;
   --text-secondary: #b8a8d4;
-  --text-muted: #7a6b96;
+  --text-muted: #9b8fb8;
 
   --accent: #ff2d95;
   --accent-secondary: #00e5ff;
@@ -64,7 +64,6 @@ body {
 .App {
   min-height: 100vh;
   background-color: var(--bg-primary);
-  padding-bottom: var(--player-height);
 }
 
 .App > div {
@@ -72,83 +71,12 @@ body {
   box-shadow: none !important;
 }
 
-/* Material UI v0 global overrides */
-.mui-app-bar {
-  background: linear-gradient(180deg, var(--bg-secondary) 0%, rgba(15, 10, 24, 0.95) 100%) !important;
-  border-bottom: 1px solid var(--border-subtle);
-  box-shadow: 0 1px 0 rgba(0, 229, 255, 0.08) !important;
+.App--player-visible {
+  padding-bottom: var(--player-height);
 }
 
-.mui-app-bar-title {
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 600 !important;
-  font-size: 1rem !important;
-  letter-spacing: -0.01em;
-}
-
-.mui-paper {
-  background-color: var(--bg-secondary) !important;
-  color: var(--text-primary) !important;
-}
-
-.mui-text-field input {
-  color: var(--text-primary) !important;
-}
-
-.mui-text-field-label {
-  color: var(--text-secondary) !important;
-}
-
-.mui-text-field-hint-text {
-  color: var(--text-muted) !important;
-}
-
-.mui-text-field-underline:before {
-  border-bottom-color: var(--border-subtle) !important;
-}
-
-.mui-text-field-underline:after {
-  border-bottom-color: var(--accent) !important;
-}
-
-.mui-text-field-underline:hover:before {
-  border-bottom-color: var(--border-strong) !important;
-}
-
-.mui-list {
-  background-color: transparent !important;
-  padding: var(--space-sm) var(--space-md) !important;
-}
-
-.mui-list-item {
-  color: var(--text-primary) !important;
-}
-
-.mui-font-icon {
-  color: var(--text-primary) !important;
-}
-
-.mui-slider-track {
-  background-color: var(--accent) !important;
-}
-
-.mui-slider-handle {
-  border-color: var(--accent) !important;
-  background-color: var(--accent) !important;
-}
-
-.mui-slider-selection {
-  background-color: var(--accent) !important;
-}
-
-.mui-slider-track-fill {
-  background-color: var(--accent) !important;
-}
-
-.mui-drawer {
-  background-color: var(--bg-elevated) !important;
-}
-
-.mui-toolbar {
-  background-color: transparent !important;
+@media (min-width: 701px) {
+  .App {
+    padding-bottom: var(--player-height);
+  }
 }

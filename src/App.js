@@ -16,9 +16,25 @@ const darkTheme = getMuiTheme({
     canvasColor: '#080510',
     paperColor: '#0f0a18',
     textColor: '#f0e6ff',
+    secondaryTextColor: '#b8a8d4',
+    alternateTextColor: '#ffffff',
+    borderColor: 'rgba(255, 45, 149, 0.1)',
   },
   appBar: {
     height: 56,
+  },
+  drawer: {
+    color: '#161022',
+  },
+  listItem: {
+    secondaryTextColor: '#b8a8d4',
+    leftIconColor: '#b8a8d4',
+    rightIconColor: '#b8a8d4',
+  },
+  slider: {
+    trackColor: 'rgba(255, 45, 149, 0.25)',
+    selectionColor: '#ff2d95',
+    handleFillColor: '#ff2d95',
   },
 });
 
@@ -41,6 +57,10 @@ class App extends Component {
     })
   }
 
+  handlePlayStateChange(isCurrentlyPlaying) {
+    this.setState({ isCurrentlyPlaying });
+  }
+
   handlePrevTrack(item){
     let index = this.state.audios.map((audio) => {
       return audio.previewUrl;
@@ -53,7 +73,8 @@ class App extends Component {
     }
 
     this.setState({
-       currentAudio: this.state.audios[index]
+       currentAudio: this.state.audios[index],
+       isCurrentlyPlaying: true
     })
   }
 
@@ -70,13 +91,12 @@ class App extends Component {
     }
 
     this.setState({
-       currentAudio: this.state.audios[index]
-    }) 
+       currentAudio: this.state.audios[index],
+       isCurrentlyPlaying: true
+    })
   }
 
   handleChangeSong(item){
-    console.log(item.trackName);
-
     this.setState({
       currentAudio: item,
       isCurrentlyPlaying: true
@@ -101,9 +121,12 @@ class App extends Component {
   }
   
   render() {
+    const hasTrack = !!(this.state.currentAudio && this.state.currentAudio.previewUrl);
+    const appClassName = 'App' + (hasTrack ? ' App--player-visible' : '');
+
     return (
        <MuiThemeProvider muiTheme={darkTheme}>
-       	<Paper className="App">
+       	<Paper className={appClassName}>
           <Header currentAudio={this.state.currentAudio} />
           <SearchBar 
             filterText={this.state.filterText}
@@ -119,8 +142,8 @@ class App extends Component {
           <MusicController
             onSkipPrev={this.handlePrevTrack.bind(this)}
             onSkipNext={this.handleNextTrack.bind(this)}
+            onPlayStateChange={this.handlePlayStateChange.bind(this)}
             currentAudio={this.state.currentAudio}
-            filterText={this.state.filterText}
             isCurrentlyPlaying={this.state.isCurrentlyPlaying}
            />
         </Paper>

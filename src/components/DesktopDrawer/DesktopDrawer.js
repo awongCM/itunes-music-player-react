@@ -8,7 +8,6 @@ import Paper from "material-ui/Paper";
 import Drawer from "material-ui/Drawer";
 import Avatar from "material-ui/Avatar";
 import { List, ListItem } from "material-ui/List";
-import Divider from "material-ui/Divider";
 
 import * as ItunesService from "../../services/ItunesService";
 

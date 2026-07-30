@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {List, ListItem, makeSelectable} from 'material-ui/List';
+import {List, makeSelectable} from 'material-ui/List';
 import MusicListItem from './MusicListItem';
+import './MusicList.css';
 
 //Wrapper class for SelectableList
 let SelectableList = makeSelectable(List);
@@ -64,10 +65,11 @@ class MusicList extends Component {
     })
 
     return (
-      <SelectableList defaultValue={0} >
-        { listItems }
-      </SelectableList>
-     
+      <div className="MusicList">
+        <SelectableList defaultValue={0} >
+          { listItems }
+        </SelectableList>
+      </div>
     );
   }
   

@@ -9,6 +9,12 @@ class Header extends Component {
       <AppBar
         className="Header"
         title={this.props.currentAudio.trackName || "Itune Music Player"}
+        titleStyle={{
+          fontFamily: "'Inter', sans-serif",
+          fontWeight: 600,
+          fontSize: '1rem',
+          letterSpacing: '-0.01em',
+        }}
         showMenuIconButton={false}
       />
     );

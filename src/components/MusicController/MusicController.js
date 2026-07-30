@@ -8,9 +8,7 @@ import Slider from "material-ui/Slider";
 import Paper from "material-ui/Paper";
 import {
   Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-  ToolbarTitle
+  ToolbarGroup
 } from "material-ui/Toolbar";
 
 import DesktopDrawer from "../../components/DesktopDrawer/DesktopDrawer";
@@ -18,46 +16,25 @@ import DesktopDrawer from "../../components/DesktopDrawer/DesktopDrawer";
 import "./MusicController.css";
 
 class MusicController extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isCurrentlyPlaying: true,
-      currentAudio: this.props.currentAudio,
-      filterText: this.props.filterText
-    };
-    // i dont want to render the controller for this small css tweak
-    this.jsClassName = "";
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    //TODO - for playing music when switching music items in the list when clicked
-    // console.log('will it update? ', nextProps, nextState);
-
-    return true;
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if (!this.state.isCurrentlyPlaying) {
-      this.refs.audios.pause();
-    } else {
-      this.refs.audios.play();
-    }
-
-    if (window.innerWidth > 700) {
-      console.log("we''re in desktop mode now ");
+  componentDidUpdate(prevProps) {
+    const audio = this.refs.audios;
+    if (!audio) {
       return;
     }
 
-    if (nextProps.isCurrentlyPlaying === this.state.isCurrentlyPlaying) {
-      this.jsClassName = nextProps.isCurrentlyPlaying ? "jsShow" : "";
-    }
-  }
+    const trackChanged =
+      prevProps.currentAudio.previewUrl !== this.props.currentAudio.previewUrl;
+    const playStateChanged =
+      prevProps.isCurrentlyPlaying !== this.props.isCurrentlyPlaying;
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.isCurrentlyPlaying) {
-      this.refs.audios.play();
+    if (!trackChanged && !playStateChanged) {
+      return;
+    }
+
+    if (this.props.isCurrentlyPlaying) {
+      audio.play();
     } else {
-      this.refs.audios.pause();
+      audio.pause();
     }
   }
 
@@ -70,30 +47,28 @@ class MusicController extends Component {
   }
 
   handlePlayTap() {
-    let playingNow = false;
+    const audio = this.refs.audios;
+    const playingNow = audio.paused;
 
-    if (this.refs.audios.duration > 0 && !this.refs.audios.paused) {
-      this.refs.audios.pause();
-      playingNow = false;
+    if (playingNow) {
+      audio.play();
     } else {
-      this.refs.audios.play();
-      playingNow = true;
+      audio.pause();
     }
 
-    this.setState({
-      isCurrentlyPlaying: playingNow
-    });
+    this.props.onPlayStateChange(playingNow);
   }
 
   render() {
-    const button = this.state.isCurrentlyPlaying ? (
-      <PauseButton />
-    ) : (
-      <PlayButton />
-    );
+    const { isCurrentlyPlaying, currentAudio } = this.props;
+    const hasTrack = !!(currentAudio && currentAudio.previewUrl);
+    const isDesktop = typeof window !== "undefined" && window.innerWidth > 700;
+    const showMobilePlayer = hasTrack && !isDesktop;
+
+    const button = isCurrentlyPlaying ? <PauseButton /> : <PlayButton />;
 
     return (
-      <Paper className={"MusicController " + this.jsClassName}>
+      <Paper className={"MusicController" + (showMobilePlayer ? " jsShow" : "")}>
         <Toolbar>
           <ToolbarGroup>
             <IconButton onTouchTap={this.handleSkipPrevTap.bind(this)}>
@@ -116,13 +91,13 @@ class MusicController extends Component {
         <Slider className="SliderToolbar" defaultValue={0.5} />
 
         <DesktopDrawer
-          isCurrentlyPlaying={this.state.isCurrentlyPlaying}
-          currentAudio={this.props.currentAudio}
+          isCurrentlyPlaying={isCurrentlyPlaying}
+          currentAudio={currentAudio}
           onSkipPrevTap={this.handleSkipPrevTap.bind(this)}
           onPlayTap={this.handlePlayTap.bind(this)}
           onSkipNextTap={this.handleSkipNextTap.bind(this)}
         />
-        <audio src={this.props.currentAudio.previewUrl} ref="audios" />
+        <audio src={currentAudio.previewUrl} ref="audios" />
       </Paper>
     );
   }

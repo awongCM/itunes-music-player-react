@@ -1,4 +1,5 @@
 .MusicListItem {
+  position: relative;
   border-radius: var(--radius-md) !important;
   border: 1px solid transparent !important;
   margin-bottom: var(--space-xs) !important;
@@ -59,11 +60,11 @@
   align-items: center;
   gap: var(--space-xs);
   color: var(--accent);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-top: var(--space-xs);
+  white-space: nowrap;
 }
 
 .MusicListItem__nowPlayingDot {
