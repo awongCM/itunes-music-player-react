@@ -11,8 +11,6 @@ import {
   ToolbarGroup
 } from "material-ui/Toolbar";
 
-import DesktopDrawer from "../../components/DesktopDrawer/DesktopDrawer";
-
 import "./MusicController.css";
 
 class MusicController extends Component {
@@ -113,14 +111,6 @@ class MusicController extends Component {
 
         <Slider className="SliderToolbar" defaultValue={0.5} />
 
-        <DesktopDrawer
-          isCurrentlyPlaying={isCurrentlyPlaying}
-          currentAudio={currentAudio}
-          isDesktop={isDesktop}
-          onSkipPrevTap={this.handleSkipPrevTap.bind(this)}
-          onPlayTap={this.handlePlayTap.bind(this)}
-          onSkipNextTap={this.handleSkipNextTap.bind(this)}
-        />
         <audio src={currentAudio.previewUrl} ref="audios" />
       </Paper>
     );

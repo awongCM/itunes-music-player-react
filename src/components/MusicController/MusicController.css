@@ -18,6 +18,7 @@
 
 .jsShow {
   height: var(--player-height);
+  overflow: visible;
 }
 
 .SliderToolbar {

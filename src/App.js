@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import SearchBar from "./components/SearchBar/SearchBar";
 import MusicList from "./components/MusicList/MusicList";
 import MusicController from "./components/MusicController/MusicController";
+import DesktopDrawer from "./components/DesktopDrawer/DesktopDrawer";
 import Paper from 'material-ui/Paper';
 import {
   applyColorMode,
@@ -28,6 +29,13 @@ class App extends Component {
       isDesktop: isDesktopViewport(),
     };
     this.handleResize = this.handleResize.bind(this);
+    this.handleDrawerPlayTap = this.handleDrawerPlayTap.bind(this);
+  }
+
+  handleDrawerPlayTap() {
+    if (this.musicController) {
+      this.musicController.handlePlayTap();
+    }
   }
 
   componentDidMount() {
@@ -155,6 +163,9 @@ class App extends Component {
             onChangeSong={this.handleChangeSong.bind(this)}
           />
           <MusicController
+            ref={(instance) => {
+              this.musicController = instance;
+            }}
             onSkipPrev={this.handlePrevTrack.bind(this)}
             onSkipNext={this.handleNextTrack.bind(this)}
             onPlayStateChange={this.handlePlayStateChange.bind(this)}
@@ -163,6 +174,14 @@ class App extends Component {
             isDesktop={this.state.isDesktop}
            />
         </Paper>
+        <DesktopDrawer
+          isCurrentlyPlaying={this.state.isCurrentlyPlaying}
+          currentAudio={this.state.currentAudio}
+          isDesktop={this.state.isDesktop}
+          onSkipPrevTap={this.handlePrevTrack.bind(this)}
+          onSkipNextTap={this.handleNextTrack.bind(this)}
+          onPlayTap={this.handleDrawerPlayTap}
+        />
        </MuiThemeProvider>
     );
   }
